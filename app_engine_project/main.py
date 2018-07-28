@@ -151,7 +151,7 @@ def new_chat_member(message):
         username = message.new_chat_member.username
     
     if not(username.lower().endswith('bot')):
-        bot.send_message(chat_id, "Salom, " + first_name)
+        bot.send_message(chat_id, "Salom, [" + first_name + "](tg://user?id=" + str(user_id) + ")")
 
 @bot.message_handler(func=lambda message: True)
 def main(message):
@@ -170,11 +170,11 @@ def main(message):
         
         def start():
             if getEnabled(chat_id): #agar oldin yozgan bo'sa
-                bot.send_message(chat_id, "Salom, qalesiz?")
+                bot.send_message(chat_id, "Salom, " + first_name + " qalesiz?")
                 next_step(chat_id, 'main')
             else:
                 setEnabled(chat_id)
-                bot.send_message(chat_id, "*Salom, siz bu botga a'zo bo'ldingiz*", parse_mode="Markdown", disable_web_page_preview=True) #so'zni to'g'illavolasila
+                bot.send_message(chat_id, "*Salom,* [" + first_name + "](tg://user?id=" + str(user_id) + ") *siz bu botga a'zo bo'ldingiz*", parse_mode="Markdown", disable_web_page_preview=True) #so'zni to'g'illavolasila
                 try:
                     history = fv.open('./history.uzsdb', 'r').read().split('|')
                 except:
@@ -259,7 +259,7 @@ def main(message):
             elif text=="ok":
                 bot.reply_to(message,"ok") #bu tomoni yana example
             elif text == "/markdown":
-                bot.send_message(chat_id, "*BOLD*, _italic_, `fixedsys`, [giperssilka](https://telegram.me/uzstudio)", parse_mode="Markdown")
+                bot.send_message(chat_id, "*BOLD*, _italic_, `fixedsys`, [giperssilka](https://telegram.me/UzBotSetin)", parse_mode="Markdown")
             
             
             elif text.startswith("/screen "):
@@ -313,7 +313,7 @@ def main(message):
             callback = types.InlineKeyboardButton(text="♻️Yangilash♻️", callback_data="about_yangilash")
             keyboard.add(callback)
             subscribe_about = '📈Bot foydalanuvchilari:\n👤*' + str(chats) + '* odamlar,\n👥*' + str(group) + '* guruxlar.\n🕵Hammasi bo\'lip: *' + str(chats+group) + '*\n'
-            bot.send_message(chat_id, subscribe_about +"\n*" + get_datetime() + "*\n\n©`2015`-`2017` @UzStudio ™", parse_mode="markdown")
+            bot.send_message(chat_id, subscribe_about +"\n*" + get_datetime() + "*\n\n©`2015`-`2017` @UzBotSetin", parse_mode="markdown")
 
         elif step=="main": #Agar asosiy menyuda bo'lsa
             if text=="/command" or text == "command":
